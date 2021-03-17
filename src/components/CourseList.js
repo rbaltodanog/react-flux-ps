@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 function CourseList(props) {
   return (
     <table className="table">
       <thead>
         <tr>
+          <th>&nbsp;</th>
           <th>Title</th>
           <th>Author ID</th>
           <th>Category</th>
@@ -16,6 +20,17 @@ function CourseList(props) {
         {props.courses.map((course) => {
           return (
             <tr key={course.id}>
+              <td>
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => {
+                    props.deleteCourse(course.id);
+                    toast.error("Course deleted");
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
+                </button>
+              </td>
               <td>
                 <Link to={"/course/" + course.slug}>{course.title}</Link>
               </td>
@@ -30,6 +45,7 @@ function CourseList(props) {
 }
 
 CourseList.propTypes = {
+  deleteCourse: PropTypes.func.isRequired,
   courses: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

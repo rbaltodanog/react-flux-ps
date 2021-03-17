@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="container-fluid">
-      <ToastContainer autoClose="3000" hideProgressBar></ToastContainer>
+      <ToastContainer autoClose={1500} hideProgressBar></ToastContainer>
       <Header />
       <Switch>
         <Route path="/" exact component={HomePage}></Route>
